@@ -7,7 +7,8 @@ import lombok.Data;
 
 @Entity
 @Data
-public class ManagerEntity {
+public class DbResponseEntity {
     @Id
-    public String ma;
+    @Column(name = "Result")
+    private int result;
 }
