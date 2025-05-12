@@ -1,4 +1,4 @@
 package com.FinanceManagerAPI.FinanceManagerAPI.Entities;
 
-public class IncomeEntity {
+public class TransactionEntity {
 }

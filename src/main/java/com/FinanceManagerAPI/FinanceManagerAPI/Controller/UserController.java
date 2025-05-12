@@ -1,12 +1,10 @@
 package com.FinanceManagerAPI.FinanceManagerAPI.Controller;
 
 import com.FinanceManagerAPI.FinanceManagerAPI.Authenticator.JwtTokenUtil;
-import com.FinanceManagerAPI.FinanceManagerAPI.Entities.LoginResponse;
-import com.FinanceManagerAPI.FinanceManagerAPI.Entities.UserEntity;
+import com.FinanceManagerAPI.FinanceManagerAPI.Entities.*;
 import com.FinanceManagerAPI.FinanceManagerAPI.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,10 +15,14 @@ public class UserController {
 
     @PutMapping("/signin")
     public ResponseEntity<?> signin(@RequestParam String email,
-                                             @RequestParam String password,
-                                             @RequestParam String firstName,
-                                             @RequestParam String lastName,
-                                             @RequestParam String phoneNumber){
+                                    @RequestParam String password,
+                                    @RequestParam String confirm_password,
+                                    @RequestParam String firstName,
+                                    @RequestParam String lastName,
+                                    @RequestParam String phoneNumber){
+        if(!password.equalsIgnoreCase(confirm_password)) {
+            return ResponseEntity.status(404).body("The passwords are not matching");
+        }
         try{
             boolean data = userService.sigin(email, password, firstName, lastName, phoneNumber);
             if (data != false){
@@ -32,10 +34,9 @@ public class UserController {
             return ResponseEntity.status(404).body("The user creation failed due to exception !!");
         }
     }
-
     @PostMapping("/login")
     public ResponseEntity<?> login ( @RequestParam String email,
-                                                 @RequestParam String password){
+                                     @RequestParam String password){
         if (email == null && !email.isEmpty()){
             return ResponseEntity.status(404).body("The email is not present or not valid");
         }
@@ -58,3 +59,4 @@ public class UserController {
     }
 
 }
+
