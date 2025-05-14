@@ -14,8 +14,7 @@ public class UserService {
 
 public UserEntity login (String email,
                          String password){
-    //return userRepo.
-    return null;
+   return userRepo.validateuser(email,password);
 }
 
 public boolean sigin(String email,
@@ -29,6 +28,6 @@ public boolean sigin(String email,
 //    }else {
 //        return false;
 //    }
-    return null;
+    return true;
 }
 }

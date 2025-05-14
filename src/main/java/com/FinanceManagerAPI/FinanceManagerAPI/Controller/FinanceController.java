@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/finance")
 public class FinanceController {
 
-    @GetMapping("/dashboard")
-    public ResponseEntity<?>dashboard(){
-
-    }
+//    @GetMapping("/dashboard")
+//    public ResponseEntity<?>dashboard(){
+//
+//    }
 }
