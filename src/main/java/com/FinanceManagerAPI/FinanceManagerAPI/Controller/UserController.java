@@ -35,8 +35,9 @@ public class UserController {
         }
     }
     @PostMapping("/login")
-    public ResponseEntity<?> login ( @RequestParam String email,
-                                     @RequestParam String password){
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        String email = loginRequest.getEmail();
+        String password = loginRequest.getPassword();
         if (email == null && !email.isEmpty()){
             return ResponseEntity.status(404).body("The email is not present or not valid");
         }
