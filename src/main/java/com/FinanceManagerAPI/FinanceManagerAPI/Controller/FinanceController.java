@@ -1,6 +1,7 @@
 package com.FinanceManagerAPI.FinanceManagerAPI.Controller;
 
 import com.FinanceManagerAPI.FinanceManagerAPI.DTO.DashboardDTO;
+import com.FinanceManagerAPI.FinanceManagerAPI.DTO.IncomeDTO;
 import com.FinanceManagerAPI.FinanceManagerAPI.Services.FinanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,5 +19,11 @@ private FinanceService financeService;
     @GetMapping("/dashboard")
     public List<DashboardDTO> dashboard(){
        return financeService.getDashboardDetails();
+    }
+
+    @GetMapping("/incometable")
+    public List<IncomeDTO> incometable(){
+
+        return financeService.incometable();
     }
 }

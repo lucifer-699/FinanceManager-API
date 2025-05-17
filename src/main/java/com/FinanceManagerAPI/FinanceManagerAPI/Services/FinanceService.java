@@ -1,6 +1,7 @@
 package com.FinanceManagerAPI.FinanceManagerAPI.Services;
 
 import com.FinanceManagerAPI.FinanceManagerAPI.DTO.DashboardDTO;
+import com.FinanceManagerAPI.FinanceManagerAPI.DTO.IncomeDTO;
 import com.FinanceManagerAPI.FinanceManagerAPI.Repositories.FinanceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,22 @@ public class FinanceService {
                 (String) row[8], // expensePercent
                 (String) row[9]  // savingPercent
         )).collect(Collectors.toList());
+
+        return result;
+    }
+
+    public List<IncomeDTO>incometable(){
+        List<Object[]> rawData = financeRepo.getIncomeRaw();
+
+        List<IncomeDTO> result = financeRepo.getIncomeRaw()
+                .stream()
+                .map(row -> new IncomeDTO(
+                        (String) row[0],
+                        (String) row[1],
+                        (String) row[2],
+                        (String) row[3]))
+                .collect(Collectors.toList());
+
 
         return result;
     }
