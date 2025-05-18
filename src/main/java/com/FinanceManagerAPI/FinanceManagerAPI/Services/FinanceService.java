@@ -1,6 +1,7 @@
 package com.FinanceManagerAPI.FinanceManagerAPI.Services;
 
 import com.FinanceManagerAPI.FinanceManagerAPI.DTO.DashboardDTO;
+import com.FinanceManagerAPI.FinanceManagerAPI.DTO.ExpenseDTO;
 import com.FinanceManagerAPI.FinanceManagerAPI.DTO.IncomeDTO;
 import com.FinanceManagerAPI.FinanceManagerAPI.Repositories.FinanceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,41 +17,62 @@ public class FinanceService {
     private FinanceRepo financeRepo;
 
 
-    public List<DashboardDTO> getDashboardDetails() {
-        List<Object[]> rawData = financeRepo.getRawDashboardData();
+    public List<DashboardDTO> getDashboardDetails(String userid) {
+        List<Object[]> rawData = financeRepo.getRawDashboardData(userid);
 
         // Map each row of the Object[] to a DashboardDTO
-        List<DashboardDTO> result = rawData.stream() .filter(row -> row.length >= 10).map(row -> new DashboardDTO(
-                (String) row[0], // totalIncome
-                (String) row[1], // totalExpense
-                (String) row[2], // balance
-                (String) row[3], //balanceChange
-                (String) row[4], // lastMonthIncome
-                (String) row[5], // lastMonthExpense
-                (String) row[6], // savings
-                (String) row[7], // incomePercent
-                (String) row[8], // expensePercent
-                (String) row[9]  // savingPercent
+        List<DashboardDTO> result = rawData.stream() .filter(row -> row.length >= 13).map(row -> new DashboardDTO(
+                (String) row[0],//userid
+                (String) row[1],  // totalIncome
+                (String) row[2], // totalExpense
+                (String) row[3],// balance
+                (String) row[4],  //balanceChange
+                (String) row[5], // lastMonthIncome
+                (String) row[6], // lastMonthExpense
+                (String) row[7], // savings
+                (String) row[8],// incomePercent
+                (String) row[9] , // expensePercent
+                (String) row[10],
+                (String) row[11],
+                (String) row[12]// savingPercent
         )).collect(Collectors.toList());
 
         return result;
     }
 
-    public List<IncomeDTO>incometable(){
-        List<Object[]> rawData = financeRepo.getIncomeRaw();
+    public List<IncomeDTO>incometable(String userid){
+        List<Object[]> rawData = financeRepo.getIncomeRaw(userid);
 
-        List<IncomeDTO> result = financeRepo.getIncomeRaw()
+        List<IncomeDTO> result = financeRepo.getIncomeRaw(userid)
                 .stream()
                 .map(row -> new IncomeDTO(
                         (String) row[0],
                         (String) row[1],
                         (String) row[2],
-                        (String) row[3]))
+                        (String) row[3],
+                        (String) row[4],
+                        (String) row[5]))
                 .collect(Collectors.toList());
+        return result;
+    }
 
+    public List<ExpenseDTO>expensetable(String userid){
+        List<Object[]> rawData = financeRepo.getExpenseRaw(userid);
+
+        List<ExpenseDTO> result = financeRepo.getExpenseRaw(userid)
+                .stream()
+                .map(row -> new ExpenseDTO(
+                        (String) row[0],
+                        (String) row[1],
+                        (String) row[2],
+                        (String) row[3],
+                        (String) row[4],
+                        (String) row[5]))
+                .collect(Collectors.toList());
 
         return result;
     }
+
 
 
 }

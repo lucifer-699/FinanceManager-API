@@ -10,10 +10,13 @@ import java.util.List;
 @Repository
 public interface FinanceRepo extends JpaRepository<UserEntity,String> {
 
-    @Query(value = "SELECT * FROM get_dashboard_text_view", nativeQuery = true)
-    List<Object[]> getRawDashboardData();
+    @Query(value = "SELECT * FROM getdashboarddetails(:userid `)", nativeQuery = true)
+    List<Object[]> getRawDashboardData(String userid);
 
-    @Query(value = "SELECT create_date, category_name, amount, category_type FROM income_transactions_text_view", nativeQuery = true)
-    List<Object[]> getIncomeRaw();
+    @Query(value = "SELECT * FROM get_income_transactions_text(:userid);", nativeQuery = true)
+    List<Object[]> getIncomeRaw(String userid);
+
+    @Query(value = "SELECT * FROM get_expense_transactions_text(:userid);", nativeQuery = true)
+    List<Object[]> getExpenseRaw(String userid);
 }
 

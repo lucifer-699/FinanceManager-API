@@ -3,7 +3,7 @@ package com.FinanceManagerAPI.FinanceManagerAPI.DTO;
 import lombok.Data;
 
 @Data
-public class IncomeDTO {
+public class ExpenseDTO {
     private String firstname;
     private String lastname;
     private String createDate;
@@ -13,7 +13,7 @@ public class IncomeDTO {
 
 
     // Constructor to map the Object[] to the DTO
-    public IncomeDTO(String firstname, String lastname, String createDate,String categoryName, String amount,String categoryType) {
+    public ExpenseDTO(String firstname, String lastname, String createDate,String categoryName, String amount,String categoryType) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.createDate = createDate;
