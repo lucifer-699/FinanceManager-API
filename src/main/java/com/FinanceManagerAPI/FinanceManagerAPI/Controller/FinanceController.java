@@ -1,9 +1,6 @@
 package com.FinanceManagerAPI.FinanceManagerAPI.Controller;
 
-import com.FinanceManagerAPI.FinanceManagerAPI.DTO.DashboardDTO;
-import com.FinanceManagerAPI.FinanceManagerAPI.DTO.ExpenseDTO;
-import com.FinanceManagerAPI.FinanceManagerAPI.DTO.IncomeDTO;
-import com.FinanceManagerAPI.FinanceManagerAPI.DTO.TransactionDTO;
+import com.FinanceManagerAPI.FinanceManagerAPI.DTO.*;
 import com.FinanceManagerAPI.FinanceManagerAPI.Services.FinanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,5 +33,9 @@ private FinanceService financeService;
     @GetMapping("/transactiontable")
     public List<TransactionDTO> gettransaction (String userid){
         return financeService.gettransaction(userid);
+    }
+    @GetMapping("/planning")
+    public List<PlanningDTO> getplanning (String userid){
+        return financeService.getplanning(userid);
     }
 }

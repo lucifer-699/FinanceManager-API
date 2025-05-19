@@ -1,9 +1,6 @@
 package com.FinanceManagerAPI.FinanceManagerAPI.Services;
 
-import com.FinanceManagerAPI.FinanceManagerAPI.DTO.DashboardDTO;
-import com.FinanceManagerAPI.FinanceManagerAPI.DTO.ExpenseDTO;
-import com.FinanceManagerAPI.FinanceManagerAPI.DTO.IncomeDTO;
-import com.FinanceManagerAPI.FinanceManagerAPI.DTO.TransactionDTO;
+import com.FinanceManagerAPI.FinanceManagerAPI.DTO.*;
 import com.FinanceManagerAPI.FinanceManagerAPI.Repositories.FinanceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -85,6 +82,24 @@ public class FinanceService {
                         (String) row[2],
                         (String) row[3],
                         (String) row[4]))
+                .collect(Collectors.toList());
+
+        return result;
+    }
+
+    public List<PlanningDTO>getplanning(String userid){
+        List<Object[]> rawData = financeRepo.getplanning(userid);
+
+        List<PlanningDTO> result = financeRepo.getplanning(userid)
+                .stream()
+                .map(row -> new PlanningDTO(
+                        (String) row[0],
+                        (String) row[1],
+                        (String) row[2],
+                        (String) row[3],
+                        (String) row[4],
+                        (String) row[5],
+                        (String) row[6]))
                 .collect(Collectors.toList());
 
         return result;
