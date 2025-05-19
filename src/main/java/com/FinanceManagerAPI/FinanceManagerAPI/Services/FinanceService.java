@@ -3,6 +3,7 @@ package com.FinanceManagerAPI.FinanceManagerAPI.Services;
 import com.FinanceManagerAPI.FinanceManagerAPI.DTO.DashboardDTO;
 import com.FinanceManagerAPI.FinanceManagerAPI.DTO.ExpenseDTO;
 import com.FinanceManagerAPI.FinanceManagerAPI.DTO.IncomeDTO;
+import com.FinanceManagerAPI.FinanceManagerAPI.DTO.TransactionDTO;
 import com.FinanceManagerAPI.FinanceManagerAPI.Repositories.FinanceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -68,6 +69,22 @@ public class FinanceService {
                         (String) row[3],
                         (String) row[4],
                         (String) row[5]))
+                .collect(Collectors.toList());
+
+        return result;
+    }
+
+    public List<TransactionDTO>gettransaction(String userid){
+        List<Object[]> rawData = financeRepo.gettransaction(userid);
+
+        List<TransactionDTO> result = financeRepo.gettransaction(userid)
+                .stream()
+                .map(row -> new TransactionDTO(
+                        (String) row[0],
+                        (String) row[1],
+                        (String) row[2],
+                        (String) row[3],
+                        (String) row[4]))
                 .collect(Collectors.toList());
 
         return result;
