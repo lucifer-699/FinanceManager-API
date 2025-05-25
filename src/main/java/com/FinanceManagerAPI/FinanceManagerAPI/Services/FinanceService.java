@@ -105,6 +105,38 @@ public class FinanceService {
         return result;
     }
 
+    public List<AnalyticsDTO>getMonthlyIncomeandExpense(String userid){
+        List<Object[]> rawData = financeRepo.getMonthlyIncomeandExpense(userid);
+
+        List<AnalyticsDTO> result = financeRepo.getMonthlyIncomeandExpense(userid)
+                .stream()
+                .map(row -> new AnalyticsDTO(
+                        (String) row[0],
+                        (String) row[1],
+                        (String) row[2]))
+                .collect(Collectors.toList());
+
+        return result;
+    }
+
+    public List<AnalyticsCategoryDTO>getAnalyticsCategory(String userid){
+        List<Object[]> rawData = financeRepo.getAnalyticsCategory(userid);
+
+        List<AnalyticsCategoryDTO> result = financeRepo.getAnalyticsCategory(userid)
+                .stream()
+                .map(row -> new AnalyticsCategoryDTO(
+                        (String) row[0],
+                        (String) row[1],
+                        (String) row[2],
+                        (String) row[3],
+                        (String) row[4],
+                        (String) row[5]))
+                .collect(Collectors.toList());
+
+        return result;
+    }
+
+
 
 
 }

@@ -24,5 +24,13 @@ public interface FinanceRepo extends JpaRepository<UserEntity,String> {
 
     @Query(value = "SELECT * FROM public.get_budget_summary_text(:userid);",nativeQuery = true)
     List<Object[]> getplanning (String userid);
+
+    @Query(value = "SELECT * FROM public.get_monthly_income_expense_summary(:userid);",nativeQuery = true)
+    List<Object[]> getMonthlyIncomeandExpense (String userid);
+
+    @Query(value = "SELECT * FROM public.get_analytics_summary_text(:userid);",nativeQuery = true)
+    List<Object[]> getAnalyticsCategory (String userid);
+
+
 }
 

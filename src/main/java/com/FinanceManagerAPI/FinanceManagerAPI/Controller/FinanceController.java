@@ -22,7 +22,6 @@ private FinanceService financeService;
 
     @GetMapping("/incometable")
     public List<IncomeDTO> incometable(String userid){
-
         return financeService.incometable(userid);
     }
     @GetMapping("/expensetable")
@@ -32,10 +31,24 @@ private FinanceService financeService;
 
     @GetMapping("/transactiontable")
     public List<TransactionDTO> gettransaction (String userid){
+        System.out.println(financeService.gettransaction(userid));
         return financeService.gettransaction(userid);
     }
     @GetMapping("/planning")
     public List<PlanningDTO> getplanning (String userid){
         return financeService.getplanning(userid);
     }
+    @GetMapping("/incomeExpense")
+    public List<AnalyticsDTO> getMonthlyIncomeandExpense (String userid){
+        return financeService.getMonthlyIncomeandExpense(userid);
+    }
+    @GetMapping("/analyticsCategory")
+    public List<AnalyticsCategoryDTO> getAnalyticsCategory(String userid){
+        System.out.println(financeService.getAnalyticsCategory(userid));
+        return financeService.getAnalyticsCategory(userid);
+
+    }
+
+
+
 }
