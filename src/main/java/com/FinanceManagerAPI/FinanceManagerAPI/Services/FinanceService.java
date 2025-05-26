@@ -136,7 +136,42 @@ public class FinanceService {
         return result;
     }
 
+    public List<CategoryIDTO> categoryid (){
+        List<Object[]> rawData = financeRepo.categoryid();
 
+        List<CategoryIDTO> result = financeRepo.categoryid()
+                .stream()
+                .map(row -> new CategoryIDTO(
+                        (String) row[0],
+                        (String) row[1],
+                        (String) row[2]))
+                .collect(Collectors.toList());
 
+        return result;
+    }
 
+    public List<CategoryMapDTO> categorymapid (String categoryid){
+        List<Object[]> rawData = financeRepo.mappingid(categoryid);
+
+        List<CategoryMapDTO> result = financeRepo.mappingid(categoryid)
+                .stream()
+                .map(row -> new CategoryMapDTO(
+                        (String) row[0],
+                        (String) row[1],
+                        (String) row[2],
+                        (String) row[3]))
+                .collect(Collectors.toList());
+
+        return result;
+    }
+
+    public boolean insertTransaction (String userid, String categoryid, String transaction_type, String mapid, String amount){
+        InsertResponseDTO result = financeRepo.insertTransaction(userid, categoryid, transaction_type, mapid, amount);
+        Integer response = Integer.parseInt(result.insert_transaction);
+        if (response == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

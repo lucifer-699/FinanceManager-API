@@ -1,4 +1,5 @@
 package com.FinanceManagerAPI.FinanceManagerAPI.Repositories;
+import com.FinanceManagerAPI.FinanceManagerAPI.DTO.InsertResponseDTO;
 import com.FinanceManagerAPI.FinanceManagerAPI.Entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -31,6 +32,13 @@ public interface FinanceRepo extends JpaRepository<UserEntity,String> {
     @Query(value = "SELECT * FROM public.get_analytics_summary_text(:userid);",nativeQuery = true)
     List<Object[]> getAnalyticsCategory (String userid);
 
+    @Query(value = "select * from categories;",nativeQuery = true)
+    List<Object[]>  categoryid();
 
+    @Query(value = "select * from categorymapping where categoryid = :categoryid",nativeQuery = true)
+    List<Object[]>  mappingid(String categoryid);
+
+    @Query(value = "SELECT insert_transaction(:userid, :categoryid, :transaction_type, :mapid, :amount);",nativeQuery = true)
+    InsertResponseDTO insertTransaction(String userid, String categoryid, String transaction_type, String mapid, String amount);
 }
 
