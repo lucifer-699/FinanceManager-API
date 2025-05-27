@@ -80,5 +80,19 @@ private FinanceService financeService;
         return response;
     }
 
+    @PostMapping("/insertcategory")
+    public boolean insertcategory(String categoryName, String categoryType){
+        boolean response = financeService.insertCategory(categoryName,categoryType);
+        System.out.println(response);
+        return response;
+    }
+
+    @PostMapping("/insertcategoryMapping")
+    public boolean insertcategoryMapping(String categoryid, String categoryType,String transactionType){
+        boolean response = financeService.insertCategoryMapping(categoryid, categoryType, transactionType);
+        System.out.println(response);
+        return response;
+    }
+
 }
 

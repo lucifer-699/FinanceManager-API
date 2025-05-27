@@ -191,4 +191,34 @@ public class FinanceService {
         }
         return false; // return false on error or invalid result
     }
+
+    public boolean insertCategory (String categoryName, String categoryType){
+        try {
+            List<Object[]> rawData = financeRepo.insertCategory(categoryName, categoryType);
+            if (rawData != null && !rawData.isEmpty()) {
+                String result = (String) rawData.get(0)[0];
+                return "1".equals(result); // return true if result is "1"
+            }
+        } catch (Exception e) {
+            // Optionally log the exception
+            e.printStackTrace();
+        }
+        return false; // return false on error or invalid result
+    }
+
+
+    public boolean insertCategoryMapping (String categoryid, String categoryType,String transactionType){
+        try {
+            List<Object[]> rawData = financeRepo.insertCategoryMapping(categoryid, categoryType,transactionType);
+            if (rawData != null && !rawData.isEmpty()) {
+                String result = (String) rawData.get(0)[0];
+                return "1".equals(result); // return true if result is "1"
+            }
+        } catch (Exception e) {
+            // Optionally log the exception
+            e.printStackTrace();
+        }
+        return false; // return false on error or invalid result
+    }
+
 }

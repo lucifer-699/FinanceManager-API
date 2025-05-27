@@ -55,5 +55,15 @@ public interface FinanceRepo extends JpaRepository<UserEntity,String> {
                                   @Param("mapid") String mapid,
                                   @Param("amount") String amount
     );
+
+    @Query(value = "SELECT insert_category(:categoryName, :categoryType);",nativeQuery = true)
+    List<Object[]> insertCategory(  @Param("categoryName") String categoryName,
+                                  @Param("categoryType") String categoryType);
+
+    @Query(value = "SELECT insert_categorymapping(:categoryid, :categoryType, :transactionType);",nativeQuery = true)
+    List<Object[]> insertCategoryMapping(   @Param("categoryid") String categoryid,
+                                           @Param("categoryType") String categoryType,
+                                            @Param("transactionType") String transactionType);
+
 }
 
