@@ -38,10 +38,10 @@ public class FinanceService {
         return result;
     }
 
-    public List<IncomeDTO>incometable(String userid){
-        List<Object[]> rawData = financeRepo.getIncomeRaw(userid);
+    public List<IncomeDTO>incometable(String userid,String month){
+        List<Object[]> rawData = financeRepo.getIncomeRaw(userid, month);
 
-        List<IncomeDTO> result = financeRepo.getIncomeRaw(userid)
+        List<IncomeDTO> result = financeRepo.getIncomeRaw(userid,month)
                 .stream()
                 .map(row -> new IncomeDTO(
                         (String) row[0],
@@ -54,10 +54,10 @@ public class FinanceService {
         return result;
     }
 
-    public List<ExpenseDTO>expensetable(String userid){
-        List<Object[]> rawData = financeRepo.getExpenseRaw(userid);
+    public List<ExpenseDTO>expensetable(String userid,String month){
+        List<Object[]> rawData = financeRepo.getExpenseRaw(userid,month);
 
-        List<ExpenseDTO> result = financeRepo.getExpenseRaw(userid)
+        List<ExpenseDTO> result = financeRepo.getExpenseRaw(userid,month)
                 .stream()
                 .map(row -> new ExpenseDTO(
                         (String) row[0],
@@ -71,10 +71,10 @@ public class FinanceService {
         return result;
     }
 
-    public List<TransactionDTO>gettransaction(String userid){
-        List<Object[]> rawData = financeRepo.gettransaction(userid);
+    public List<TransactionDTO>gettransaction(String userid,String month){
+       // List<Object[]> rawData = financeRepo.gettransaction(userid);
 
-        List<TransactionDTO> result = financeRepo.gettransaction(userid)
+        List<TransactionDTO> result = financeRepo.gettransaction(userid,month)
                 .stream()
                 .map(row -> new TransactionDTO(
                         (String) row[0],
@@ -165,13 +165,30 @@ public class FinanceService {
         return result;
     }
 
-    public boolean insertTransaction (String userid, String categoryid, String transaction_type, String mapid, String amount){
-        InsertResponseDTO result = financeRepo.insertTransaction(userid, categoryid, transaction_type, mapid, amount);
-        Integer response = Integer.parseInt(result.insert_transaction);
-        if (response == 1){
-            return true;
-        }else{
-            return false;
+    public boolean insertTransaction(String userid, String categoryid, String transaction_type, String mapid, String amount) {
+        try {
+            List<Object[]> rawData = financeRepo.insertTransaction(userid, categoryid, transaction_type, mapid, amount);
+            if (rawData != null && !rawData.isEmpty()) {
+                String result = (String) rawData.get(0)[0];
+                return "1".equals(result); // return true if result is "1"
+            }
+        } catch (Exception e) {
+            // Optionally log the exception
+            e.printStackTrace();
         }
+        return false; // return false on error or invalid result
+    }
+    public boolean insertBudget (String userid, String categoryid, String mapid, String amount){
+        try {
+            List<Object[]> rawData = financeRepo.insertBudget(userid, categoryid, mapid, amount);
+            if (rawData != null && !rawData.isEmpty()) {
+                String result = (String) rawData.get(0)[0];
+                return "1".equals(result); // return true if result is "1"
+            }
+        } catch (Exception e) {
+            // Optionally log the exception
+            e.printStackTrace();
+        }
+        return false; // return false on error or invalid result
     }
 }

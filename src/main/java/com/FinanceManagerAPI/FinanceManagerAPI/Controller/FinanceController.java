@@ -20,21 +20,22 @@ private FinanceService financeService;
     }
 
     @GetMapping("/incometable")
-    public List<IncomeDTO> incometable(@RequestParam String userid){
-        return financeService.incometable(userid);
+    public List<IncomeDTO> incometable(@RequestParam String userid,@RequestParam String month){
+        return financeService.incometable(userid,month);
     }
     @GetMapping("/expensetable")
-    public List<ExpenseDTO> expensetable(@RequestParam String userid){
-        return financeService.expensetable(userid);
+    public List<ExpenseDTO> expensetable(@RequestParam String userid,@RequestParam String month){
+        return financeService.expensetable(userid,month);
     }
 
     @GetMapping("/transactiontable")
-    public List<TransactionDTO> gettransaction (@RequestParam String userid){
-        System.out.println(financeService.gettransaction(userid));
-        return financeService.gettransaction(userid);
+    public List<TransactionDTO> gettransaction (@RequestParam String userid,@RequestParam String month){
+        System.out.println(financeService.gettransaction(userid,month));
+        return financeService.gettransaction(userid,month);
     }
     @GetMapping("/planning")
     public List<PlanningDTO> getplanning (@RequestParam String userid){
+        System.out.println("Planing List :" +financeService.getplanning(userid) );
         return financeService.getplanning(userid);
     }
     @GetMapping("/incomeExpense")
@@ -57,15 +58,27 @@ private FinanceService financeService;
         System.out.println(financeService.categorymapid(categoryid));
         return financeService.categorymapid(categoryid);
     }
-    @PostMapping("/insert")
+    @PostMapping("/insertinex")
     public boolean insert(@RequestParam String userid,
                           @RequestParam String categoryid,
                           @RequestParam String transaction_type,
                           @RequestParam String mapid,
                           @RequestParam String amount){
+        System.out.println(transaction_type);
         boolean response = financeService.insertTransaction(userid, categoryid, transaction_type, mapid, amount);
         System.out.println(response);
         return response;
     }
 
+    @PostMapping("/insertplan")
+    public boolean insertplan(@RequestParam String userid,
+                          @RequestParam String categoryid,
+                          @RequestParam String mapid,
+                          @RequestParam String amount){
+        boolean response = financeService.insertBudget(userid, categoryid, mapid, amount);
+        System.out.println(response);
+        return response;
+    }
+
 }
+
