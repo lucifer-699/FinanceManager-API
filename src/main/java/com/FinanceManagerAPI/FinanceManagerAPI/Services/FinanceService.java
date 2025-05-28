@@ -49,7 +49,9 @@ public class FinanceService {
                         (String) row[2],
                         (String) row[3],
                         (String) row[4],
-                        (String) row[5]))
+                        (String) row[5],
+                        (String) row[6],
+                        (String) row[7]))
                 .collect(Collectors.toList());
         return result;
     }
@@ -65,7 +67,9 @@ public class FinanceService {
                         (String) row[2],
                         (String) row[3],
                         (String) row[4],
-                        (String) row[5]))
+                        (String) row[5],
+                        (String) row[6],
+                        (String) row[7]))
                 .collect(Collectors.toList());
 
         return result;
@@ -165,9 +169,9 @@ public class FinanceService {
         return result;
     }
 
-    public boolean insertTransaction(String userid, String categoryid, String transaction_type, String mapid, String amount) {
+    public boolean insertTransaction(String userid, String categoryid, String transaction_type, String mapid, String amount,String remarks) {
         try {
-            List<Object[]> rawData = financeRepo.insertTransaction(userid, categoryid, transaction_type, mapid, amount);
+            List<Object[]> rawData = financeRepo.insertTransaction(userid, categoryid, transaction_type, mapid, amount, remarks);
             if (rawData != null && !rawData.isEmpty()) {
                 String result = (String) rawData.get(0)[0];
                 return "1".equals(result); // return true if result is "1"
@@ -221,4 +225,33 @@ public class FinanceService {
         return false; // return false on error or invalid result
     }
 
+
+    public boolean insertUser (String firstname,String lastname, String email,String password,String phone_number){
+        try {
+            List<Object[]> rawData = financeRepo.insertUser(firstname,lastname,email,password,phone_number);
+            if (rawData != null && !rawData.isEmpty()) {
+                String result = (String) rawData.get(0)[0];
+                return "1".equals(result); // return true if result is "1"
+            }
+        } catch (Exception e) {
+            // Optionally log the exception
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public boolean deleteTransaction(String transactionid, String userid) {
+        try {
+            List<Object[]> rawData = financeRepo.DeleteTransaction(transactionid, userid);
+            if (rawData != null && !rawData.isEmpty()) {
+                Object resultObj = rawData.get(0)[0];
+                if (resultObj instanceof Number) {
+                    int result = ((Number) resultObj).intValue();
+                    return result == 1;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // or use logger
+        }
+        return false;
+    }
 }

@@ -21,10 +21,12 @@ private FinanceService financeService;
 
     @GetMapping("/incometable")
     public List<IncomeDTO> incometable(@RequestParam String userid,@RequestParam String month){
+        System.out.println(financeService.incometable(userid, month));
         return financeService.incometable(userid,month);
     }
     @GetMapping("/expensetable")
     public List<ExpenseDTO> expensetable(@RequestParam String userid,@RequestParam String month){
+        System.out.println(financeService.expensetable(userid, month));
         return financeService.expensetable(userid,month);
     }
 
@@ -63,9 +65,11 @@ private FinanceService financeService;
                           @RequestParam String categoryid,
                           @RequestParam String transaction_type,
                           @RequestParam String mapid,
-                          @RequestParam String amount){
-        System.out.println(transaction_type);
-        boolean response = financeService.insertTransaction(userid, categoryid, transaction_type, mapid, amount);
+                          @RequestParam String amount,
+                          @RequestParam String remarks){
+        System.out.println(remarks);
+
+        boolean response = financeService.insertTransaction(userid, categoryid, transaction_type, mapid, amount, remarks);
         System.out.println(response);
         return response;
     }
@@ -93,6 +97,22 @@ private FinanceService financeService;
         System.out.println(response);
         return response;
     }
+
+
+    @PostMapping("/insertUser")
+    public boolean insertUser(String firstname,String lastname, String email,String password,String phone_number){
+        boolean response = financeService.insertUser(firstname, lastname, email, password, phone_number);
+        System.out.println(response);
+        return response;
+    }
+
+    @PostMapping("/deleteTransaction")
+    public boolean deleteTransaction(@RequestParam String transactionid, @RequestParam String userid) {
+        boolean response = financeService.deleteTransaction(transactionid, userid);
+        System.out.println("Deleted: " + response);
+        return response;
+    }
+
 
 }
 

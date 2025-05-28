@@ -39,13 +39,14 @@ public interface FinanceRepo extends JpaRepository<UserEntity,String> {
     @Query(value = "select * from categorymapping where categoryid = :categoryid",nativeQuery = true)
     List<Object[]>  mappingid(String categoryid);
 
-    @Query(value = "SELECT insert_transaction(:userid, :categoryid, :transaction_type, :mapid, :amount)", nativeQuery = true)
+    @Query(value = "SELECT insert_transaction(:userid, :categoryid, :transaction_type, :mapid, :amount, :remarks)", nativeQuery = true)
     List<Object[]> insertTransaction(
             @Param("userid") String userid,
             @Param("categoryid") String categoryid,
             @Param("transaction_type") String transactionType,
             @Param("mapid") String mapid,
-            @Param("amount") String amount
+            @Param("amount") String amount,
+            @Param("remarks") String remarks
     );
 
 
@@ -64,6 +65,20 @@ public interface FinanceRepo extends JpaRepository<UserEntity,String> {
     List<Object[]> insertCategoryMapping(   @Param("categoryid") String categoryid,
                                            @Param("categoryType") String categoryType,
                                             @Param("transactionType") String transactionType);
+
+
+    @Query(value = "SELECT insert_user(:firstname, :lastname, :email, :password, :phone_number);", nativeQuery = true)
+    List<Object[]> insertUser(
+            @Param("firstname") String firstname,
+            @Param("lastname") String lastname,
+            @Param("email") String email,
+            @Param("password") String password,
+            @Param("phone_number") String phoneNumber
+    );
+    @Query(value = "SELECT delete_transaction(:transactionid, :userid);",nativeQuery = true)
+    List<Object[]> DeleteTransaction(  @Param("transactionid") String transactionid,
+                                    @Param("userid") String userid);
+
 
 }
 
