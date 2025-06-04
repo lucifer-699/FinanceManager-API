@@ -35,8 +35,9 @@ public class UserController {
         }
     }
     @PostMapping("/login")
-    public ResponseEntity<?> login ( @RequestParam String email,
-                                     @RequestParam String password){
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        String email = loginRequest.getEmail();
+        String password = loginRequest.getPassword();
         if (email == null && !email.isEmpty()){
             return ResponseEntity.status(404).body("The email is not present or not valid");
         }
@@ -46,10 +47,12 @@ public class UserController {
 
         try {
             UserEntity data = userService.login(email,password);
+            String userid = data.getUserid();
+            System.out.println("This user id is recorded" + userid);
             if (data != null){
                 System.out.println("The user with email : " + email + " is logged in.");
                 String token = JwtTokenUtil.generateToken(email);
-                return ResponseEntity.ok(new LoginResponse(token));
+                return ResponseEntity.ok(new LoginResponse(token, userid));
             }else {
                 return ResponseEntity.status(404).body(" The token generation Failed !!");
             }

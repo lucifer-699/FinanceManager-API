@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepo extends JpaRepository<UserEntity, String> {
 
-@Query(value = "SELECT * FROM get_user_by_email_and_password(:email, :password)",nativeQuery = true)
+@Query(value = "select * from users where email = :email and password = :password;",nativeQuery = true)
     UserEntity validateuser(String email, String password);
 }
