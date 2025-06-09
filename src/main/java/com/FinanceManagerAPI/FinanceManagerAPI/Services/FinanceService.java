@@ -180,9 +180,11 @@ public class FinanceService {
         return result;
     }
 
-    public boolean insertTransaction(String userid1, String categoryid, String transaction_type, String mapid, String amount,String remarks) {
+    public boolean insertTransaction(String userid1, String categoryid1, String transaction_type, String mapid1, String amount,String remarks) {
         try {
             int userid = Integer.parseInt(userid1);
+            int categoryid = Integer.parseInt(categoryid1);
+            int mapid = Integer.parseInt(mapid1);
             List<Object[]> rawData = financeRepo.insertTransaction(userid, categoryid, transaction_type, mapid, amount, remarks);
             if (rawData != null && !rawData.isEmpty()) {
                 String result = (String) rawData.get(0)[0];
@@ -194,9 +196,11 @@ public class FinanceService {
         }
         return false; // return false on error or invalid result
     }
-    public boolean insertBudget (String userid1, String categoryid, String mapid, String amount){
+    public boolean insertBudget (String userid1, String categoryid1, String mapid1, String amount){
         try {
             int userid = Integer.parseInt(userid1);
+            int categoryid = Integer.parseInt(categoryid1);
+            int mapid = Integer.parseInt(mapid1);
             List<Object[]> rawData = financeRepo.insertBudget(userid, categoryid, mapid, amount);
             if (rawData != null && !rawData.isEmpty()) {
                 String result = (String) rawData.get(0)[0];
@@ -255,9 +259,11 @@ public class FinanceService {
         }
         return false;
     }
-    public boolean deleteTransaction(String transactionid, String userid1) {
+    public boolean deleteTransaction(String transactionid1, String userid1) {
         try {
             int userid = Integer.parseInt(userid1);
+
+            int transactionid = Integer.parseInt(transactionid1);
             List<Object[]> rawData = financeRepo.DeleteTransaction(transactionid, userid);
             if (rawData != null && !rawData.isEmpty()) {
                 Object resultObj = rawData.get(0)[0];

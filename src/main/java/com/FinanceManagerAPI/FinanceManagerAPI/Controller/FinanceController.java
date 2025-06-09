@@ -42,8 +42,9 @@ private FinanceService financeService;
     }
     @GetMapping("/planning")
     public List<PlanningDTO> getplanning (@RequestParam String userid){
+        userid.equalsIgnoreCase()
         System.out.println( "Planning Data Fetched for Userid : " + userid);
-        System.out.println(">>>>Result :" +financeService.getplanning(userid) );
+        System.out.println(">>>>Result :" +financeService.getplanning(userid));
         return financeService.getplanning(userid);
     }
     @GetMapping("/incomeExpense")

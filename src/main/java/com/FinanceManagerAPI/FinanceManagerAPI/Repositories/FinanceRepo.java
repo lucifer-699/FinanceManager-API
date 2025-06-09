@@ -42,9 +42,9 @@ public interface FinanceRepo extends JpaRepository<UserEntity,String> {
     @Query(value = "SELECT insert_transaction(:userid, :categoryid, :transaction_type, :mapid, :amount, :remarks)", nativeQuery = true)
     List<Object[]> insertTransaction(
             @Param("userid") int userid,
-            @Param("categoryid") String categoryid,
+            @Param("categoryid") int categoryid,
             @Param("transaction_type") String transactionType,
-            @Param("mapid") String mapid,
+            @Param("mapid") int mapid,
             @Param("amount") String amount,
             @Param("remarks") String remarks
     );
@@ -52,8 +52,8 @@ public interface FinanceRepo extends JpaRepository<UserEntity,String> {
 
     @Query(value = "SELECT insert_budget(:userid, :categoryid,:mapid, :amount);",nativeQuery = true)
     List<Object[]> insertBudget(  @Param("userid") int userid,
-                                  @Param("categoryid") String categoryid,
-                                  @Param("mapid") String mapid,
+                                  @Param("categoryid") int categoryid,
+                                  @Param("mapid") int mapid,
                                   @Param("amount") String amount
     );
 
@@ -79,11 +79,11 @@ public interface FinanceRepo extends JpaRepository<UserEntity,String> {
             @Param("phone_number") String phoneNumber
     );
     @Query(value = "SELECT delete_transaction(:transactionid, :userid);",nativeQuery = true)
-    List<Object[]> DeleteTransaction(  @Param("transactionid") String transactionid,
+    List<Object[]> DeleteTransaction(  @Param("transactionid") int transactionid,
                                     @Param("userid") int userid);
 
     @Query(value = "SELECT public.delete_categorymapping(:mapid, :userid);",nativeQuery = true)
-    List<Object[]> DeleteCategoryMapping(  @Param("mapid") String mapid,
+    List<Object[]> DeleteCategoryMapping(  @Param("mapid") int mapid,
                                        @Param("userid") int userid);
 
 }
