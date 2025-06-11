@@ -118,12 +118,12 @@ private FinanceService financeService;
     }
 
 
-    @PostMapping("/insertUser")
-    public boolean insertUser(String firstname,String lastname, String email,String password,String phone_number){
-        boolean response = financeService.insertUser(firstname, lastname, email, password, phone_number);
-        System.out.println(response);
-        return response;
-    }
+//    @PostMapping("/insertUser")
+//    public boolean insertUser(String firstname,String lastname, String email,String password,String phone_number){
+//        boolean response = financeService.insertUser(firstname, lastname, email, password, phone_number);
+//        System.out.println(response);
+//        return response;
+//    }
 
     @PostMapping("/deleteTransaction")
     public boolean deleteTransaction(@RequestParam String transactionid, @RequestParam String userid) {

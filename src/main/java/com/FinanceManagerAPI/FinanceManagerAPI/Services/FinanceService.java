@@ -246,19 +246,19 @@ public class FinanceService {
     }
 
 
-    public boolean insertUser (String firstname,String lastname, String email,String password,String phone_number){
-        try {
-            List<Object[]> rawData = financeRepo.insertUser(firstname,lastname,email,password,phone_number);
-            if (rawData != null && !rawData.isEmpty()) {
-                String result = (String) rawData.get(0)[0];
-                return "1".equals(result); // return true if result is "1"
-            }
-        } catch (Exception e) {
-            // Optionally log the exception
-            e.printStackTrace();
-        }
-        return false;
-    }
+//    public boolean insertUser (String firstname,String lastname, String email,String password,String phone_number){
+//        try {
+//            List<Object[]> rawData = financeRepo.insertUser(firstname,lastname,email,password,phone_number);
+//            if (rawData != null && !rawData.isEmpty()) {
+//                String result = (String) rawData.get(0)[0];
+//                return "1".equals(result); // return true if result is "1"
+//            }
+//        } catch (Exception e) {
+//            // Optionally log the exception
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
     public boolean deleteTransaction(String transactionid1, String userid1) {
         try {
             int userid = Integer.parseInt(userid1);

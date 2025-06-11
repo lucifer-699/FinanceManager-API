@@ -70,14 +70,14 @@ public interface FinanceRepo extends JpaRepository<UserEntity,String> {
                                             @Param("userid") int userid);
 
 
-    @Query(value = "SELECT insert_user(:firstname, :lastname, :email, :password, :phone_number);", nativeQuery = true)
-    List<Object[]> insertUser(
-            @Param("firstname") String firstname,
-            @Param("lastname") String lastname,
-            @Param("email") String email,
-            @Param("password") String password,
-            @Param("phone_number") String phoneNumber
-    );
+//    @Query(value = "SELECT insert_user(:firstname, :lastname, :email, :password, :phone_number);", nativeQuery = true)
+//    List<Object[]> insertUser(
+//            @Param("firstname") String firstname,
+//            @Param("lastname") String lastname,
+//            @Param("email") String email,
+//            @Param("password") String password,
+//            @Param("phone_number") String phoneNumber
+//    );
     @Query(value = "SELECT delete_transaction(:transactionid, :userid);",nativeQuery = true)
     List<Object[]> DeleteTransaction(  @Param("transactionid") int transactionid,
                                     @Param("userid") int userid);

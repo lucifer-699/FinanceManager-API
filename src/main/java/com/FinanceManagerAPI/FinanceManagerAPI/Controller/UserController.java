@@ -13,27 +13,14 @@ public class UserController {
     @Autowired
     public UserService userService;
 
-    @PutMapping("/signin")
-    public ResponseEntity<?> signin(@RequestParam String email,
-                                    @RequestParam String password,
-                                    @RequestParam String confirm_password,
-                                    @RequestParam String firstName,
-                                    @RequestParam String lastName,
-                                    @RequestParam String phoneNumber){
-        if(!password.equalsIgnoreCase(confirm_password)) {
-            return ResponseEntity.status(404).body("The passwords are not matching");
-        }
-        try{
-            boolean data = userService.sigin(email, password, firstName, lastName, phoneNumber);
-            if (data != false){
-                return ResponseEntity.ok("true");
-            }else {
-                return ResponseEntity.status(404).body("false");
-            }
-        }catch (Exception e){
-            return ResponseEntity.status(404).body("The user creation failed due to exception !!");
-        }
+    @PostMapping("/signin")
+    public boolean insertUser(@RequestBody SignupRequest request){
+        System.out.println(request.getEmail() + request.getPassword());
+        boolean response = userService.insertUser(request.firstname,request.lastname,request.email, request.password, request.phone_number);
+        System.out.println(response);
+        return response;
     }
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         String email = loginRequest.getEmail();
