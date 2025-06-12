@@ -17,11 +17,23 @@ public class UserService {
     private UserRepo userRepo;
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public UserEntity login (String email,
-                             String password){
-       return userRepo.validateuser(email,password);
+    public UserEntity login(String email, String password) {
+        UserEntity user = userRepo.findByEmail(email);
+        if (user == null) {
+            System.out.println("No user found for email: " + email);
+            return null;
+        }
+        boolean isPasswordValid = passwordEncoder.matches(password, user.getPassword());
+        System.out.println("Password match result: " + isPasswordValid);
+
+        if (isPasswordValid) {
+            return user;
+        } else {
+            return null;
+        }
     }
-//        public UserEntity login (String email,
+
+    //        public UserEntity login (String email,
 //                                 String password){
 //            String pass = passwordEncoder.encode(password);
 //            System.out.println(pass);

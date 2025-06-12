@@ -7,9 +7,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class UserDetailsServiceImp implements UserDetailsService {
 
     @Autowired
@@ -17,20 +17,15 @@ public class UserDetailsServiceImp implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
-        try {
-            UserEntity user = userRepo.findByEmail(email);
-
-            if(user != null){
-               UserDetails userdetails = User.builder()
-                        .username(user.getEmail())
-                        .password(user.getPassword())
-                        .build();
-                return userdetails;
-            }
-       throw new UsernameNotFoundException("Username not found : " +email);
-        } catch (Exception e) {
-            throw new RuntimeException("the user doesnt exits");
+        UserEntity user = userRepo.findByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with email: " + email);
         }
+
+        return User.builder()
+                .username(user.getEmail())
+                .password(user.getPassword()) // hashed password
+                .roles("USER") // you can manage roles better later
+                .build();
     }
 }

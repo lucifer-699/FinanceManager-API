@@ -13,8 +13,8 @@ import java.util.List;
 @Repository
 public interface UserRepo extends JpaRepository<UserEntity, String> {
 
-@Query(value = "select * from users where email = :email and password = :password;",nativeQuery = true)
-    UserEntity validateuser(String email, String password);
+//@Query(value = "select * from users where email = :email and password = :password;",nativeQuery = true)
+//    UserEntity validateuser(String email, String password);
 
     UserEntity findByEmail(String email);
 
